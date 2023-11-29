@@ -1,5 +1,4 @@
 #include "lab1.hpp"
-#define MODE (0644U)
 
 int ParentRoutine(const char *pathToChild) {
 
@@ -8,11 +7,12 @@ int ParentRoutine(const char *pathToChild) {
     getline(std::cin, fileName1);
     getline(std::cin, fileName2);
 
-    int fd1[2] {-1, -1};//pipe1
-    int fd2[2] {-1, -1};//pipe2
+    int fd1[2] {-1, -1}; //pipe1
+    int fd2[2] {-1, -1}; //pipe2
     int fd[2] {-1, -1};
     createPipe(fd1);
     createPipe(fd2);
+    const mode_t MODE = 0644;
     fd[0] = open(fileName1.c_str(), O_CREAT | O_WRONLY | O_TRUNC, MODE);
     fd[1] = open(fileName2.c_str(), O_CREAT | O_WRONLY | O_TRUNC, MODE);
 
@@ -20,13 +20,12 @@ int ParentRoutine(const char *pathToChild) {
     pid[0] = createChildProcess();
     pid[1] = createChildProcess();
 
-    if (pid[0] == 0) {//child 1
+    if (pid[0] == 0) { //child 1
         close(fd2[0]);
         close(fd2[1]);
         close(fd1[1]);
         close(fd[1]);
         
-
         if (dup2(fd1[0], STDIN_FILENO) == -1) {
             perror("Error with dup2");
             exit(EXIT_FAILURE);
@@ -41,7 +40,7 @@ int ParentRoutine(const char *pathToChild) {
             exit(EXIT_FAILURE);
         }
         
-    } else if (pid[1] == 0) {//child 2
+    } else if (pid[1] == 0) { //child 2
         close(fd1[0]);
         close(fd1[1]);
         close(fd2[1]);
@@ -61,7 +60,7 @@ int ParentRoutine(const char *pathToChild) {
             exit(EXIT_FAILURE);
         }
         
-    } else {//parent
+    } else { //parent
         close(fd1[0]);
         close(fd2[0]);
         close(fd[0]);
