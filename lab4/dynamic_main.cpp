@@ -3,9 +3,6 @@
 int main() {
     const char pathToLib1[] = "/home/hacker/prog/my_os_labs/build/lab4/lib1.so";
     const char pathToLib2[] = "/home/hacker/prog/my_os_labs/build/lab4/lib2.so";
-    //const char *pathToLib2 = getenv("PATH_TO_LIB2");
-    // bash: export PATH_TO_LIB1="/home/kristinab/ubuntu_main/OS_labs/build/lab4/librealization1.so"
-    // bash: export PATH_TO_LIB2="/home/kristinab/ubuntu_main/OS_labs/build/lab4/librealization2.so"
 
     void* libraryHandle = LoadLibrary(pathToLib1);
     SortFunc Sort = (SortFunc)dlsym(libraryHandle, "Sort");
