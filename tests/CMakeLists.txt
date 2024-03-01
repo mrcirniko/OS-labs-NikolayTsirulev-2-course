@@ -61,3 +61,10 @@ target_include_directories(lab4_test2 PRIVATE ../lab4/include)
 
 add_test(lab4_test2 lab4_test2)
 
+#cp
+
+add_executable(cp_test cp_test.cpp)
+target_include_directories(cp_test PRIVATE ${CMAKE_SOURCE_DIR}/cp/include)
+target_include_directories(cp_test PRIVATE ${CMAKE_SOURCE_DIR}/cp/lib)
+target_link_libraries(cp_test PRIVATE cp_lib GTest::GTest)
+
