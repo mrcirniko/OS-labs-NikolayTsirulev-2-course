@@ -61,6 +61,18 @@ target_include_directories(lab4_test2 PRIVATE ../lab4/include)
 
 add_test(lab4_test2 lab4_test2)
 
+#lab5-7
+
+set(CMAKE_CXX_FLAGS "-lzmq")
+
+add_executable(lab5-7_test lab5-7_test.cpp ../lab5-7/src/topology.cpp ../lab5-7/src/socket.cpp)
+target_link_libraries(lab5-7_test PRIVATE GTest::GTest)
+target_include_directories(lab5-7_test PRIVATE ../lab5-7/include)
+
+target_link_libraries(lab5-7_test PRIVATE zmq)
+
+add_test(lab5-7_test lab5-7_test)
+
 #cp
 
 add_executable(cp_test cp_test.cpp)
